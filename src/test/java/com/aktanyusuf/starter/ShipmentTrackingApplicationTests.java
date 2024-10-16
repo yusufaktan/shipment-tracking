@@ -1,4 +1,4 @@
-package com.aktanyusuf.shipment_tracking;
+package com.aktanyusuf.starter;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
