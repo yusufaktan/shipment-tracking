@@ -81,4 +81,9 @@ public class ShipmentServiceImpl implements IShipmentService {
         return getAllShipments();
     }
 
+    @Override
+    public List<DtoShipment> pendingShipments() {
+        return shipmentRepository.pendingShipments();
+    }
+
 }

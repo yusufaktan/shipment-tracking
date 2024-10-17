@@ -46,4 +46,10 @@ public class ShipmentControllerImpl implements IShipmentController {
     public List<DtoShipment> updateShipment(@PathVariable(name = "id") UUID id, @RequestBody DtoShipmentIU dtoShipmentIU) {
         return shipmentService.updateShipment(id, dtoShipmentIU);
     }
+
+    @Override
+    @GetMapping(path = "/pendingShipments")
+    public List<DtoShipment> pendingShipments() {
+        return shipmentService.pendingShipments();
+    }
 }

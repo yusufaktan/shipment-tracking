@@ -18,4 +18,6 @@ public interface IShipmentController{
 
     public List<DtoShipment> updateShipment(UUID id, DtoShipmentIU dtoShipmentIU);
 
+    public List<DtoShipment> pendingShipments();
+
 }
