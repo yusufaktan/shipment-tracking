@@ -10,15 +10,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ShipmentServiceImpl implements IShipmentService {
@@ -38,29 +33,52 @@ public class ShipmentServiceImpl implements IShipmentService {
     }
 
     @Override
-    public List<DtoShipment> addShipment(DtoShipmentIU dtoShipmentIU) {
-        return List.of();
+    public DtoShipment getShipmentById(UUID id){
+        DtoShipment dtoShipment = new DtoShipment();
+        for (Shipment shipment : shipmentRepository.findAll()){
+            if (shipment.getId().equals(id)){
+                BeanUtils.copyProperties(shipment, dtoShipment);
+                break;
+            }
+        }
+        return dtoShipment;
     }
 
-    /*
+
     @Override
     public List<DtoShipment> addShipment(DtoShipmentIU dtoShipmentIU) {
         Shipment shipment = new Shipment();
         BeanUtils.copyProperties(dtoShipmentIU, shipment);
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String formattedDate = formatter.format(new Date());
-            Date date = formatter.parse(formattedDate);
-            shipment.setCreatedAt(date);
-        } catch (ParseException e){
-            e.printStackTrace();
-        }
+        shipment.setCreatedAt(LocalDate.now());
         shipment.setTrackingNumber(Shipment.generateTrackingNumber());
         shipment.setShipmentStatus(ShipmentStatus.PENDING);
         shipmentRepository.save(shipment);
         return getAllShipments();
     }
 
-     */
+    @Override
+    public List<DtoShipment> deleteShipment(UUID id) {
+        for (Shipment shipment: shipmentRepository.findAll()){
+            if (shipment.getId().equals(id)){
+                shipmentRepository.delete(shipment);
+                break;
+            }
+        }
+        return getAllShipments();
+    }
+
+    @Override
+    public List<DtoShipment> updateShipment(UUID id, DtoShipmentIU dtoShipmentIU) {
+        for (Shipment shipment : shipmentRepository.findAll()){
+            if (shipment.getId().equals(id)){
+                shipmentRepository.delete(shipment);
+                break;
+            }
+        }
+        Shipment shipment = new Shipment();
+        BeanUtils.copyProperties(dtoShipmentIU, shipment);
+        shipmentRepository.save(shipment);
+        return getAllShipments();
+    }
 
 }

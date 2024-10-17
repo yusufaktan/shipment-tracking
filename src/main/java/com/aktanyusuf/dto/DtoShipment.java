@@ -1,12 +1,13 @@
 package com.aktanyusuf.dto;
 
 import com.aktanyusuf.model.ShipmentStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class DtoShipment {
     private String senderName;
     private String receiverName;
     private ShipmentStatus shipmentStatus;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
 }

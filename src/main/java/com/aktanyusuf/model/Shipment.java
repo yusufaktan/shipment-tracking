@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -43,12 +43,10 @@ public class Shipment {
     private ShipmentStatus shipmentStatus;
 
     @Column(name = "created_at")
-    @JsonFormat(pattern = "yyyy-mm-dd")
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "updated_at")
-    @JsonFormat(pattern = "yyyy-mm-dd")
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
     public static String generateTrackingNumber(){
         return "TN" + UUID.randomUUID().toString().replace("-", "").toUpperCase();

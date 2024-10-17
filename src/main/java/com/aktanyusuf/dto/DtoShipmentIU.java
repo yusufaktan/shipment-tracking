@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.UUID;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,9 +14,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DtoShipmentIU {
 
+    private String trackingNumber;
     private String senderName;
     private String senderAddress;
     private String receiverName;
     private String receiverAddress;
+    private ShipmentStatus shipmentStatus;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
 }
