@@ -1,5 +1,6 @@
 package com.aktanyusuf.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,10 +42,12 @@ public class Shipment {
     @Column(name = "shipment_status")
     private ShipmentStatus shipmentStatus;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date createdAt;
 
     @Column(name = "updated_at")
+    @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updatedAt;
 
     public static String generateTrackingNumber(){
