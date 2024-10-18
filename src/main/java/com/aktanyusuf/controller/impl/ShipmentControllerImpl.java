@@ -4,6 +4,7 @@ import com.aktanyusuf.controller.IShipmentController;
 import com.aktanyusuf.dto.DtoShipment;
 import com.aktanyusuf.dto.DtoShipmentIU;
 import com.aktanyusuf.service.impl.ShipmentServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class ShipmentControllerImpl implements IShipmentController {
 
     @Override
     @PostMapping
-    public List<DtoShipment> addShipment(@RequestBody DtoShipmentIU dtoShipmentIU) {
+    public List<DtoShipment> addShipment(@RequestBody @Valid DtoShipmentIU dtoShipmentIU) {
         return shipmentService.addShipment(dtoShipmentIU);
     }
 
@@ -43,7 +44,7 @@ public class ShipmentControllerImpl implements IShipmentController {
 
     @Override
     @PutMapping(path = "/{id}")
-    public List<DtoShipment> updateShipment(@PathVariable(name = "id") UUID id, @RequestBody DtoShipmentIU dtoShipmentIU) {
+    public List<DtoShipment> updateShipment(@PathVariable(name = "id") UUID id, @RequestBody @Valid DtoShipmentIU dtoShipmentIU) {
         return shipmentService.updateShipment(id, dtoShipmentIU);
     }
 
