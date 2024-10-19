@@ -20,4 +20,6 @@ public interface IShipmentController{
 
     public List<DtoShipment> pendingShipments();
 
+    public DtoShipment statusUpdate(UUID id, String status);
+
 }

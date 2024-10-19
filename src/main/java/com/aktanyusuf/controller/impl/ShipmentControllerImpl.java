@@ -53,4 +53,10 @@ public class ShipmentControllerImpl implements IShipmentController {
     public List<DtoShipment> pendingShipments() {
         return shipmentService.pendingShipments();
     }
+
+    @Override
+    @PostMapping(path = "/statusUpdate/{id}")
+    public DtoShipment statusUpdate(@PathVariable(name = "id") UUID id, @RequestParam(name = "status") String status) {
+        return shipmentService.statusUpdate(id, status);
+    }
 }

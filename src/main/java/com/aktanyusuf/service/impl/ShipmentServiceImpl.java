@@ -71,19 +71,35 @@ public class ShipmentServiceImpl implements IShipmentService {
     public List<DtoShipment> updateShipment(UUID id, DtoShipmentIU dtoShipmentIU) {
         for (Shipment shipment : shipmentRepository.findAll()){
             if (shipment.getId().equals(id)){
-                shipmentRepository.delete(shipment);
-                break;
+                BeanUtils.copyProperties(dtoShipmentIU, shipment);
+                shipment.setUpdatedAt(LocalDate.now());
+                shipmentRepository.save(shipment);
+                return getAllShipments();
             }
         }
-        Shipment shipment = new Shipment();
-        BeanUtils.copyProperties(dtoShipmentIU, shipment);
-        shipmentRepository.save(shipment);
-        return getAllShipments();
+        return null;
     }
 
     @Override
     public List<DtoShipment> pendingShipments() {
         return shipmentRepository.pendingShipments();
+    }
+
+    @Override
+    public DtoShipment statusUpdate(UUID id, String status) {
+        if (status.equals("PENDING") || status.equals("OUT_FOR_DELIVERY") || status.equals("DELIVERED") || status.equals("CANCELLED")) {
+            DtoShipment dtoShipment = new DtoShipment();
+            for (Shipment shipment : shipmentRepository.findAll()) {
+                if (shipment.getId().equals(id)) {
+                    shipment.setShipmentStatus(ShipmentStatus.valueOf(status));
+                    shipment.setUpdatedAt(LocalDate.now());
+                    shipmentRepository.save(shipment);
+                    BeanUtils.copyProperties(shipment, dtoShipment);
+                    return dtoShipment;
+                }
+            }
+        }
+        return null;
     }
 
 }
