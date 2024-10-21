@@ -107,4 +107,3 @@ Below are the available API endpoints and their descriptions:
   **Description**: Updates the status of a shipment.  
   **Example**:  
   `/rest/api/shipment/statusUpdate/123e4567-e89b-12d3-a456-426614174000?status=DELIVERED`
-```
